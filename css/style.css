@@ -1,0 +1,32 @@
+body {
+	background-color: black;
+	text-align: center;
+}
+h1 {
+	text-align: center;
+	color: white;
+	font-size: 4.5em;
+}
+
+a:hover {
+    text-decoration: none;
+		cursor: pointer;
+}
+#zipForm {
+	margin: 5% 0 5% 0;
+}
+.fa {
+	font-size: 0.9em;
+}
+#locateMe {
+	margin-top: 7%;
+}
+#weth {
+	color: white;
+	font-size: 2em;
+}
+footer {
+	text-align: center;
+	margin: 10% 1% 5% 1%;
+	color: white;
+}
