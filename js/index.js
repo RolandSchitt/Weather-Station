@@ -1,3 +1,25 @@
+const zipForm = document.querySelector('#zipForm');
+
+const updateCity = async (zip) => {
+	const locationKey = await getCity(zip);	
+	const weatherOb = await getCurrentConditions(locationKey);
+
+	console.log(weatherOb);
+};
+
+zipForm.addEventListener('submit', event => {
+	//Prevent default action
+	event.preventDefault();
+
+	const zipCode = zipForm.zipInput.value.trim();
+
+	updateCity(zipCode);
+
+});
+
+
+
+
 
 
 
