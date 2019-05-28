@@ -7,7 +7,7 @@ const getCity = async (zip) => {
 
   const response = await fetch(url + query);
   const data = await response.json();
-
+  
   return data[0];
 };
 
@@ -21,6 +21,16 @@ const getCurrentConditions = async (zipObj) => {
   return data;
 }
 
+const getImages = async (zipObj) => {
+  const url = `http://dataservice.accuweather.com/imagery/v1/maps/radsat/480x480/`;
+  const query = `${zipObj.Key}?apiKey=${key}`;
+
+  const response = await fetch(url + query);
+  const data = await response.json();
+
+  return data;
+}
+
 
 const updateUI = (dataObj) => {
   const locationCity = dataObj.zipDeets.LocalizedName;
@@ -29,11 +39,17 @@ const updateUI = (dataObj) => {
   const tempC = dataObj.weatherObj[0].Temperature.Metric.Value;
   const description = dataObj.weatherObj[0].WeatherText;
   const icon = dataObj.weatherObj[0].WeatherIcon;
-
+  const mapsURL = `http://dataservice.accuweather.com/imagery/v1/maps/radsat/480x480/`;
+  
+  //update UI with weather info
   const weather = document.querySelector('#weth');
   weather.innerHTML = 
     `<p>${locationCity}, ${locationCountry}<p>
     <p><a id="degrees" class="fahrenheit">${tempF}° F</a></p>
     <p>${description}</p>
-    <p><img src="https://developer.accuweather.com/weather-icons/${icon}" alt="${description}"></p>`;
+    <p><img src="icons/${icon}.svg" alt="${description}"></p>`;
+
+  console.log(dataObj);
+
+  //
 }
