@@ -1,11 +1,17 @@
 const zipForm = document.querySelector('#zipForm');
 
 const updateCity = async (zip) => {
-	const locationKey = await getCity(zip);	
-	const weatherOb = await getCurrentConditions(locationKey);
+	const zipDeets = await getCity(zip);	
+	const weatherObj = await getCurrentConditions(zipDeets);
+	// const imagery = await getImages(zipDeets);
 
-	console.log(weatherOb);
+	return {
+		zipDeets,
+		weatherObj,
+		// imagery
+	};
 };
+
 
 zipForm.addEventListener('submit', event => {
 	//Prevent default action
@@ -13,17 +19,11 @@ zipForm.addEventListener('submit', event => {
 
 	const zipCode = zipForm.zipInput.value.trim();
 
-	updateCity(zipCode);
+	updateCity(zipCode)
+	.then(data => updateUI(data))
+	.catch(err => console.log(err));
 
 });
-
-
-
-
-
-
-
-
 
 
 
@@ -52,7 +52,8 @@ zipForm.addEventListener('submit', event => {
 // 					var temp = ("<p><a id='degrees' class='fahrenheit'>"+tempf+"° F</a></p>");
 
 // 					$("#weth").html(location+temp+"<p>"+description+"</p><p><img src='"+iconUrl+"' alt='"+description+"'</p>");
-//   				//remove old map and create new map
+					
+// 					//remove old map and create new map
 // 					$("#localMap").remove();
 // 					var img = new Image();
 //     			img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" +weatherLocation + "&zoom=10&size=300x300&sensor=false";
@@ -63,7 +64,7 @@ zipForm.addEventListener('submit', event => {
 //   		});
 // }
 
-// //function to find location and then load weather info
+// // //function to find location and then load weather info
 // function findMe() {
 //   if (!navigator.geolocation){
 //     $("#out").text("Geolocation is not supported by your browser");
@@ -86,7 +87,7 @@ zipForm.addEventListener('submit', event => {
 //   navigator.geolocation.getCurrentPosition(success, error);
 // }
 
-// //form validation function
+// // //form validation function
 // function validateForm(x) {
 //     if (x == "" || isNaN(x) || x > 99999 || x<00001) {
 //         alert("Please Enter a Valid Zipcode");
