@@ -2,7 +2,7 @@ const key = 'mRVh1Oee4YOZbIFEHPofhAZ969GBRqmb';
 
 
 const getCity = async (zip) => {
-  const url = 'http://dataservice.accuweather.com/locations/v1/postalcodes/search';
+  const url = 'https://dataservice.accuweather.com/locations/v1/postalcodes/search';
   const query = `?apikey=${key}&q=${zip}`;
 
   const response = await fetch(url + query);
@@ -12,7 +12,7 @@ const getCity = async (zip) => {
 };
 
 const getCurrentConditions = async (zipObj) => {
-  const url = 'http://dataservice.accuweather.com/currentconditions/v1/';
+  const url = 'https://dataservice.accuweather.com/currentconditions/v1/';
   const query = `${zipObj.Key}?apikey=${key}&?details=true`;
 
   const response = await fetch(url + query);
@@ -21,15 +21,15 @@ const getCurrentConditions = async (zipObj) => {
   return data;
 }
 
-const getImages = async (zipObj) => {
-  const url = `http://dataservice.accuweather.com/imagery/v1/maps/radsat/480x480/`;
-  const query = `${zipObj.Key}?apiKey=${key}`;
+// const getImages = async (zipObj) => {
+//   const url = `http://dataservice.accuweather.com/imagery/v1/maps/radsat/480x480/`;
+//   const query = `${zipObj.Key}?apiKey=${key}`;
 
-  const response = await fetch(url + query);
-  const data = await response.json();
+//   const response = await fetch(url + query);
+//   const data = await response.json();
 
-  return data;
-}
+//   return data;
+// }
 
 
 const updateUI = (dataObj) => {
