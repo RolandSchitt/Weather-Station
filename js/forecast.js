@@ -39,7 +39,7 @@ const updateUI = (dataObj) => {
   const tempC = dataObj.weatherObj[0].Temperature.Metric.Value;
   const description = dataObj.weatherObj[0].WeatherText;
   const icon = dataObj.weatherObj[0].WeatherIcon;
-  const mapsURL = `http://dataservice.accuweather.com/imagery/v1/maps/radsat/480x480/`;
+  let tempVal = 1;
   
   //update UI with weather info
   const weather = document.querySelector('#weth');
@@ -49,7 +49,24 @@ const updateUI = (dataObj) => {
     <p>${description}</p>
     <p><img src="icons/${icon}.svg" alt="${description}"></p>`;
 
-  console.log(dataObj);
+  //Toggle Temp scale between F & C
+  const unit = document.querySelector('#degrees');
 
-  //
+  unit.addEventListener('click', e => {
+    e.preventDefault();
+    if (tempVal === 1) {
+      unit.innerText = `${tempC}° C`;
+      tempVal = 0;
+    }
+    else {
+      unit.innerText = `${tempF}° F`;
+      tempVal = 1;
+    }
+  });
+
+    //  API does not offer free imagery
+  //update UI with radar imagery
+  // const images = document.querySelector('#results');
+  // // images.innerHTML = ``;
+  // console.log(dataObj);
 }

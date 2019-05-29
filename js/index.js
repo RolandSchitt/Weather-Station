@@ -3,12 +3,12 @@ const zipForm = document.querySelector('#zipForm');
 const updateCity = async (zip) => {
 	const zipDeets = await getCity(zip);	
 	const weatherObj = await getCurrentConditions(zipDeets);
-	const imagery = await getImages(zipDeets);
+	// const imagery = await getImages(zipDeets);
 
 	return {
 		zipDeets,
 		weatherObj,
-		imagery
+		// imagery
 	};
 };
 
@@ -35,34 +35,34 @@ zipForm.addEventListener('submit', event => {
 
 
 // //function for api and create map
-function api(weatherLocation){
-	$.ajax({
-  			url : apiURL + weatherLocation + ".json",
-  			dataType : "jsonp",
-  			success : function(parsed_json) {
-					parsed_j = parsed_json;
-  				var locationCity = parsed_json.location.city;
-					var locationCountry = parsed_json.location.country;
-  				tempf = parsed_json.current_observation.temp_f;
-					tempc = parsed_json.current_observation.temp_c;
-					description = parsed_json.current_observation.weather;
-					icon = parsed_json.current_observation.icon;
-					iconUrl = "https://icons.wxug.com/i/c/i/"+icon+".gif";
-					var location = ("<p>"+locationCity+", "+locationCountry+"</p>");
-					var temp = ("<p><a id='degrees' class='fahrenheit'>"+tempf+"° F</a></p>");
+// function api(weatherLocation){
+// 	$.ajax({
+//   			url : apiURL + weatherLocation + ".json",
+//   			dataType : "jsonp",
+//   			success : function(parsed_json) {
+// 					parsed_j = parsed_json;
+//   				var locationCity = parsed_json.location.city;
+// 					var locationCountry = parsed_json.location.country;
+//   				tempf = parsed_json.current_observation.temp_f;
+// 					tempc = parsed_json.current_observation.temp_c;
+// 					description = parsed_json.current_observation.weather;
+// 					icon = parsed_json.current_observation.icon;
+// 					iconUrl = "https://icons.wxug.com/i/c/i/"+icon+".gif";
+// 					var location = ("<p>"+locationCity+", "+locationCountry+"</p>");
+// 					var temp = ("<p><a id='degrees' class='fahrenheit'>"+tempf+"° F</a></p>");
 
-					$("#weth").html(location+temp+"<p>"+description+"</p><p><img src='"+iconUrl+"' alt='"+description+"'</p>");
+// 					$("#weth").html(location+temp+"<p>"+description+"</p><p><img src='"+iconUrl+"' alt='"+description+"'</p>");
 					
-					//remove old map and create new map
-					$("#localMap").remove();
-					var img = new Image();
-    			img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" +weatherLocation + "&zoom=10&size=300x300&sensor=false";
-					img.id = "localMap";
-					var output = document.getElementById("out");
-    			output.appendChild(img);
-				}
-  		});
-}
+// 					//remove old map and create new map
+// 					$("#localMap").remove();
+// 					var img = new Image();
+//     			img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" +weatherLocation + "&zoom=10&size=300x300&sensor=false";
+// 					img.id = "localMap";
+// 					var output = document.getElementById("out");
+//     			output.appendChild(img);
+// 				}
+//   		});
+// }
 
 // // //function to find location and then load weather info
 // function findMe() {
