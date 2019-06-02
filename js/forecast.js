@@ -1,26 +1,27 @@
-const key = 'mRVh1Oee4YOZbIFEHPofhAZ969GBRqmb';
-
-
-const getCity = async (zip) => {
-  const url = 'https://dataservice.accuweather.com/locations/v1/postalcodes/search';
-  const query = `?apikey=${key}&q=${zip}`;
-
-  const response = await fetch(url + query);
-  const data = await response.json();
-  
-  return data[0];
-};
-
-const getCurrentConditions = async (zipObj) => {
-  const url = 'https://dataservice.accuweather.com/currentconditions/v1/';
-  const query = `${zipObj.Key}?apikey=${key}&?details=true`;
-
-  const response = await fetch(url + query);
-  const data = await response.json();
-  
-  return data;
+class Forcast {
+  constructor(){
+    this.key = 'mRVh1Oee4YOZbIFEHPofhAZ969GBRqmb';
+    this.zipURL = 'https://dataservice.accuweather.com/locations/v1/postalcodes/search';
+    this.conditionsURL = 'https://dataservice.accuweather.com/currentconditions/v1/';
+  }
+  async weatherUpdate(zip){
+    const locationInfo = await this.getLocation(zip);	
+  	const weatherObj = await this.getCurrentConditions(locationInfo);
+    return { locationInfo, weatherObj };
+  }
+  async getLocation(zip){
+    const query = `?apikey=${this.key}&q=${zip}`;
+    const response = await fetch(this.zipURL + query);
+    const locationData = await response.json();
+    return locationData[0];
+  }
+  async getCurrentConditions(locationInfo){
+    const query = `${locationInfo.Key}?apikey=${this.key}&?details=true`;
+    const response = await fetch(this.conditionsURL + query);
+    const conditionsData = await response.json();
+    return conditionsData;
+  }
 }
-
 // const getImages = async (zipObj) => {
 //   const url = `http://dataservice.accuweather.com/imagery/v1/maps/radsat/480x480/`;
 //   const query = `${zipObj.Key}?apiKey=${key}`;
@@ -33,8 +34,8 @@ const getCurrentConditions = async (zipObj) => {
 
 
 const updateUI = (dataObj) => {
-  const locationCity = dataObj.zipDeets.LocalizedName;
-  const locationCountry = dataObj.zipDeets.AdministrativeArea.LocalizedName;
+  const locationCity = dataObj.locationInfo.LocalizedName;
+  const locationCountry = dataObj.locationInfo.AdministrativeArea.LocalizedName;
   const tempF = dataObj.weatherObj[0].Temperature.Imperial.Value;
   const tempC = dataObj.weatherObj[0].Temperature.Metric.Value;
   const description = dataObj.weatherObj[0].WeatherText;
