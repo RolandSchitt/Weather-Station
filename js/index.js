@@ -1,17 +1,5 @@
 const zipForm = document.querySelector('#zipForm');
-
-const updateCity = async (zip) => {
-	const zipDeets = await getCity(zip);	
-	const weatherObj = await getCurrentConditions(zipDeets);
-	// const imagery = await getImages(zipDeets);
-
-	return {
-		zipDeets,
-		weatherObj,
-		// imagery
-	};
-};
-
+const forcast = new Forcast();
 
 zipForm.addEventListener('submit', event => {
 	//Prevent default action
@@ -19,7 +7,8 @@ zipForm.addEventListener('submit', event => {
 
 	const zipCode = zipForm.zipInput.value.trim();
 
-	updateCity(zipCode)
+	
+	forcast.weatherUpdate(zipCode)
 	.then(data => updateUI(data))
 	.catch(err => console.log(err));
 
@@ -28,7 +17,7 @@ zipForm.addEventListener('submit', event => {
 });
 
 if(localStorage.getItem('location')){
-	updateCity(localStorage.getItem('location'))
+	forcast.weatherUpdate(localStorage.getItem('location'))
 		.then(data => updateUI(data))
 		.catch(err => console.log(err));
 }
