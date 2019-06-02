@@ -23,7 +23,15 @@ zipForm.addEventListener('submit', event => {
 	.then(data => updateUI(data))
 	.catch(err => console.log(err));
 
+	//set local storage
+	localStorage.setItem('location', zipCode);
 });
+
+if(localStorage.getItem('location')){
+	updateCity(localStorage.getItem('location'))
+		.then(data => updateUI(data))
+		.catch(err => console.log(err));
+}
 
 
 

@@ -1,3 +1,11 @@
+class Forcast {
+  constructor(){
+    this.key = 'mRVh1Oee4YOZbIFEHPofhAZ969GBRqmb';
+    this.zipURL = 'https://dataservice.accuweather.com/locations/v1/postalcodes/search';
+    this.conditionsURL = 'https://dataservice.accuweather.com/currentconditions/v1/';
+  }
+}
+
 const key = 'mRVh1Oee4YOZbIFEHPofhAZ969GBRqmb';
 
 
